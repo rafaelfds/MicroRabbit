@@ -124,7 +124,7 @@ namespace MicroRabbit.Infra.Bus
                     var subscriptions = _handlers[eventName];
                     foreach (var subscription in subscriptions)
                     {
-                        var handler = Activator.CreateInstance(subscription);
+                        var handler = scope.ServiceProvider.GetService(subscription);
                         if (handler == null) continue;
 
                         var eventType = _eventTypes.SingleOrDefault(t => t.Name == eventName);
